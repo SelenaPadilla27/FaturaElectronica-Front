@@ -21,10 +21,14 @@ import { MatOptionModule } from '@angular/material/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { TokenInterceptor } from './interceptors/token.interceptor';
-
+import {MatDialogModule} from '@angular/material/dialog';
+import { AgregarClienteComponent } from './components/agregar-cliente/agregar-cliente.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, PacientesComponent],
+  declarations: [AppComponent, LoginComponent, PacientesComponent, AgregarClienteComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -47,7 +51,11 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     MatSelectModule,
     MatOptionModule,
     ReactiveFormsModule,
-    SweetAlert2Module
+    SweetAlert2Module,
+    MatDialogModule,
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}],

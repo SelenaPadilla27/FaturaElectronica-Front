@@ -1,0 +1,22 @@
+.example-form {
+  min-width: 180px;
+  max-width: 700px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+td {
+  padding-right: 8px;
+}
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-button-row {
+  display: table-cell;
+  max-width: 600px;
+}

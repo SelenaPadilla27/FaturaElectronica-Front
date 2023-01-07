@@ -11,6 +11,9 @@ const routes: Routes = [
   path: 'paciente', component:PacientesComponent
 },
 {
+  path: 'agregar-cliente', component:PacientesComponent
+},
+{
   path: '', component:LoginComponent
 }
 

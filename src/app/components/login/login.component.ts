@@ -18,14 +18,11 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   loginForm!:FormGroup;
-
   validarForm:Boolean = false;
-
 
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-
     this.loginForm = new FormGroup({
       email: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),

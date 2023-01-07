@@ -21,8 +21,8 @@ export class PacientesService {
     return this.http.delete<void>(Rutas.DELETE_ELIMINAR_MASCOTA + id);
   }
 
-  registrarMascota(id: number, mascota: Mascota): Observable<void> {
-    return this.http.post<void>(Rutas.POST_REGISTRAR_MASCOTA + id, mascota);
+  registrarMascota(id: number, mascota: Mascota): Observable<Mascota> {
+    return this.http.post<Mascota>(Rutas.POST_REGISTRAR_MASCOTA + id, mascota);
   }
 
   obtenerMascotaPorId(id: number): Observable<Mascota> {
@@ -39,8 +39,8 @@ export class PacientesService {
     return this.http.delete<void>(Rutas.DELETE_ELIMINAR_CLIENTE + id);
   }
 
-  registrarCliente(cliente: Cliente): Observable<void> {
-    return this.http.post<void>(Rutas.POST_REGISTRAR_CLIENTE, cliente);
+  registrarCliente(cliente: Cliente): Observable<Cliente> {
+    return this.http.post<Cliente>(Rutas.POST_REGISTRAR_CLIENTE, cliente);
   }
 
   obtenerClientePorId(id: number): Observable<Cliente> {
@@ -56,19 +56,26 @@ export class PacientesService {
     return this.http.get<Paciente[]>(Rutas.GET_LISTA_PACIENTES);
   }
 
-  eliminarPaciente(id: number): Observable<void> {
-    return this.http.delete<void>(Rutas.DELETE_ELIMINAR_PACIENTE + id);
+  eliminarPaciente(id: number): Observable<boolean> {
+    return this.http.delete<boolean>(Rutas.DELETE_ELIMINAR_PACIENTE + id);
   }
 
-  registrarPaciente(id: number, paciente: Paciente): Observable<void> {
-    return this.http.post<void>(Rutas.POST_REGISTRAR_PACIENTE + id, paciente);
+  registrarPaciente(id: number, paciente: Paciente): Observable<Paciente> {
+    return this.http.post<Paciente>(Rutas.POST_REGISTRAR_PACIENTE + id, paciente);
   }
 
   obtenerPacientePorId(id: number): Observable<Paciente> {
     return this.http.get<Paciente>(Rutas.GET_BUSCAR_PACIENTE + id);
   }
 
-  actualizarPacientePorId(id:number, paciente: Paciente): Observable<void> {
-    return this.http.post<void>(Rutas.POST_ACTUALIZAR_PACIENTE + id, paciente);
+  actualizarPacientePorId(id:number, paciente: Paciente): Observable<Paciente> {
+    return this.http.post<Paciente>(Rutas.POST_ACTUALIZAR_PACIENTE + id, paciente);
+  }
+
+  actualizarClientePorId(id:number, cliente: Cliente): Observable<Cliente> {
+    return this.http.post<Cliente>(Rutas.POST_ACTUALIZAR_CLIENTE + id, cliente);
+  }
+  actualizarMascotaPorId(id:number, mascota: Mascota): Observable<Mascota> {
+    return this.http.post<Mascota>(Rutas.POST_ACTUALIZAR_MASCOTA + id, mascota);
   }
 }

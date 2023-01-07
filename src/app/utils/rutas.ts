@@ -9,12 +9,16 @@ export const Rutas = {
   DELETE_ELIMINAR_CLIENTE: `${Environments.URLApi}api/cliente/`,
   POST_REGISTRAR_CLIENTE: `${Environments.URLApi}api/cliente/agregarCliente`,
   GET_BUSCAR_CLIENTE: `${Environments.URLApi}api/cliente/obtenerPorId/`,
+  POST_ACTUALIZAR_CLIENTE: `${Environments.URLApi}api/cliente/actualizarCliente/`,
+
 
   //Controlador de Mascota
   GET_LISTA_MASCOTAS: `${Environments.URLApi}api/mascota/`,
   DELETE_ELIMINAR_MASCOTA: `${Environments.URLApi}api/mascota/`,
   POST_REGISTRAR_MASCOTA: `${Environments.URLApi}api/mascota/agregarMascota/`,
   GET_BUSCAR_MASCOTA: `${Environments.URLApi}api/mascota/obtenerPorId/`,
+  POST_ACTUALIZAR_MASCOTA: `${Environments.URLApi}api/mascota/actualizarMascota/`,
+
 
   //Controlador de Paciente
   GET_LISTA_PACIENTES: `${Environments.URLApi}api/paciente/`,

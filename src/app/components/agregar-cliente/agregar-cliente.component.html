@@ -1,0 +1,145 @@
+<mat-accordion class="example-headers-align">
+  <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Datos del Cliente </mat-panel-title>
+      <mat-panel-description> VETERINARIAXYZ
+        <mat-icon>pets</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <!-- Formulario Cliente -->
+    <form class="example-form" [formGroup]="clienteForm" >
+      <table class="example-full-width" cellspacing="0">
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width">
+              <mat-label>Tipo de Identificación</mat-label>
+              <mat-select formControlName="tipoId">
+                <mat-option value="TI">Tarjeta de Identidad</mat-option>
+                <mat-option value="CC">Cedula de Ciudadania</mat-option>
+                <mat-option value="CE">Cedula de Extranjeria</mat-option>
+              </mat-select>
+              <mat-error> Seleccione un tipo de documento </mat-error>
+            </mat-form-field>
+          </td>
+
+          <td>
+            <mat-form-field class="example-full-width">
+              <mat-label>Digite el Numero</mat-label>
+              <input matInput formControlName="numId">
+              <mat-error> Por favor ingrese el numero valido </mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+
+      <table class="example-full-width" cellspacing="0">
+        <td>
+          <mat-form-field class="example-full-width">
+            <mat-label>Nombre del Cliente</mat-label>
+            <input matInput formControlName="nombre">
+            <mat-error> Por favor ingrese Nombre del cliente </mat-error>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="example-full-width">
+            <mat-label>Apellidos del Cliente</mat-label>
+            <input matInput formControlName="apellido">
+            <mat-error> Por favor ingrese los apellidos del cliente </mat-error>
+          </mat-form-field>
+        </td>
+      </table>
+      <p>
+        <mat-form-field class="example-full-width">
+          <mat-label>Dirección</mat-label>
+          <textarea matInput formControlName="direccion"></textarea>
+          <mat-error> Por favor ingrese la direccion del cliente </mat-error>
+        </mat-form-field>
+      </p>
+      <table class="example-full-width" cellspacing="0">
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width">
+              <mat-label>Ciudad</mat-label>
+              <input matInput placeholder="Ex. San Francisco" formControlName="ciudad">
+              <mat-error>Por favor ingrese la ciudad de recidencia</mat-error>
+            </mat-form-field>
+          </td>
+          <td><mat-form-field class="example-full-width">
+              <mat-label>Telefono</mat-label>
+              <input matInput formControlName="telefono">
+              <mat-error> Por favor ingrese el numero de celular del cliente </mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+      <mat-action-row>
+        <button [disabled]="clienteForm.invalid" mat-button color="primary" (click)="nextStep()">Siguiente</button>
+      </mat-action-row>
+    </form>
+  </mat-expansion-panel>
+  <!-- Formulario Mascota -->
+  <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Datos de la Mascota</mat-panel-title>
+      <mat-panel-description>VETERINARIAXYZ<mat-icon>pets</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form class="example-form" [formGroup]="mascotaForm" >
+      <table class="example-full-width" cellspacing="0">
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width">
+              <mat-label>Nombre de la Mascota</mat-label>
+              <input matInput formControlName="nomMascota">
+              <mat-error> Por favor ingrese el nombre de la mascota </mat-error>
+            </mat-form-field>
+          </td>
+
+          <td>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Fecha de nacimiento</mat-label>
+              <input matInput formControlName="fecNacMascota" [matDatepicker]="picker">
+              <mat-error> Por favor ingrese la fecha de nacimiento </mat-error>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker [dateClass]="dateClass" #picker></mat-datepicker>
+            </mat-form-field>
+
+          </td>
+        </tr>
+      </table>
+
+      <table class="example-full-width" cellspacing="0">
+        <td>
+          <mat-form-field class="example-full-width">
+            <mat-label>Especie de la Mascota</mat-label>
+            <mat-select formControlName="especieMascota">
+              <mat-option value="Perro" >Perro</mat-option>
+              <mat-option value="Gato" >Gato</mat-option>
+              <mat-option value="Pajaro" >Pajaro</mat-option>
+              <mat-option value="Hámsters" >Hámsters</mat-option>
+            </mat-select>
+            <mat-error> Por favor ingrese Especie </mat-error>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="example-full-width">
+            <mat-label>Raza</mat-label>
+            <input matInput formControlName="razaMascota">
+            <mat-error> Por favor ingrese Raza </mat-error>
+          </mat-form-field>
+        </td>
+      </table>
+      <p>
+        <mat-form-field class="example-full-width">
+          <mat-label>Color</mat-label>
+          <input matInput formControlName="colorMascota" placeholder="Ex. Cafe">
+          <mat-error> Por favor ingrese Color </mat-error>
+        </mat-form-field>
+      </p>
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Anterior</button>
+        <button (click)="guardarDatos()" [disabled]="mascotaForm.invalid" mat-flat-button color="primary" >Guardar</button>
+      </mat-action-row>
+    </form>
+  </mat-expansion-panel>
+</mat-accordion>
