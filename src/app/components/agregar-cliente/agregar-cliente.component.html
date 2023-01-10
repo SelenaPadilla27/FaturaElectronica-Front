@@ -4,6 +4,9 @@
       <mat-panel-title> Datos del Cliente </mat-panel-title>
       <mat-panel-description> VETERINARIAXYZ
         <mat-icon>pets</mat-icon>
+        <button mat-icon-button matTooltip="Primary"  color="primary" aria-label="Example icon-button with a heart icon" (click)="cerrarModal()">
+          <mat-icon>close</mat-icon>
+        </button>
       </mat-panel-description>
     </mat-expansion-panel-header>
     <!-- Formulario Cliente -->
@@ -55,12 +58,12 @@
           <mat-error> Por favor ingrese la direccion del cliente </mat-error>
         </mat-form-field>
       </p>
-      <table class="example-full-width" cellspacing="0">
+      <table class="example-full-width">
         <tr>
           <td>
             <mat-form-field class="example-full-width">
               <mat-label>Ciudad</mat-label>
-              <input matInput placeholder="Ex. San Francisco" formControlName="ciudad">
+              <input matInput formControlName="ciudad">
               <mat-error>Por favor ingrese la ciudad de recidencia</mat-error>
             </mat-form-field>
           </td>

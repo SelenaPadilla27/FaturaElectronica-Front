@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { LoginService } from 'src/app/services/login.service';
 import { Login, Token } from 'src/app/models/login.models';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2/public-api';
-import { SwalDirective } from '@sweetalert2/ngx-sweetalert2/public-api';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 

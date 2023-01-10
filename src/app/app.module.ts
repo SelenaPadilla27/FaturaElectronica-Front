@@ -26,6 +26,8 @@ import { AgregarClienteComponent } from './components/agregar-cliente/agregar-cl
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import { DatePipe } from '@angular/common';
+
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, PacientesComponent, AgregarClienteComponent],
@@ -55,7 +57,9 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatDialogModule,
     MatExpansionModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    DatePipe
+
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}],

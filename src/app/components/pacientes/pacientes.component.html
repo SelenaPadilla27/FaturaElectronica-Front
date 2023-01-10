@@ -4,13 +4,9 @@
     <button mat-button routerLink="/"><mat-icon>home</mat-icon></button>
   </span>
   <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-    <button mat-button routerLink="/login" >
-      <mat-icon>power_settings_new</mat-icon>
-      Login
-    </button>
-    <button mat-button (click)="cerrarSesion()">
+        <button mat-button (click)="cerrarSesion()">
       <mat-icon>exit_to_app</mat-icon>
-      Logout
+      Cerrar Sesion
     </button>
     </div>
   <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
@@ -23,21 +19,25 @@
     Home
   </button>
 
-  <button mat-menu-item routerLink="/login">
-    <mat-icon>power_settings_new</mat-icon>
-    Login
-  </button>
+
   <button mat-menu-item  (click)="cerrarSesion()">
     <mat-icon>exit_to_app</mat-icon>
-    Logout
+    Cerrar Sesion
   </button>
 
 </mat-menu>
 
 <div class="table">
   <div class="mat-elevation-z8">
-    <div class="demo-button-container">
-      <button mat-raised-button (click)="agregarPacientes()" class="demo-button">Agregar</button>
+    <div class="demo-button-container" class="divbotton">
+
+        <button mat-raised-button color="primary" (click)="agregarPacientes()" class="demo-button"
+        >Agregar</button>
+                  <button mat-mini-fab matTooltip="Primary" color="primary" aria-label="Example mini fab with a heart icon" (click)="downloadData()" >
+            <mat-icon>get_app</mat-icon>
+           </button>
+
+
     </div>
 
 

@@ -34,3 +34,10 @@
 .demo-button + .demo-button {
   margin-left: 8px;
 }
+.divbotton{
+  margin-top: 4%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1.5rem;
+}

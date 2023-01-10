@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { Cliente, Paciente } from 'src/app/models/mascota.models';
@@ -8,8 +9,9 @@ import { TokenService } from 'src/app/services/token.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AgregarClienteComponent } from '../agregar-cliente/agregar-cliente.component';
-import { HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { FileSaverService } from 'ngx-filesaver';
+import * as XLSX from 'xlsx';
+
 
 
 @Component({
@@ -36,7 +38,8 @@ export class PacientesComponent implements OnInit, AfterViewInit {
     private pacientesService: PacientesService,
     private tokenService: TokenService,
     private router: Router,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private fileSaverService: FileSaverService
   ) {}
   ngAfterViewInit(): void {}
   ngOnInit(): void {
@@ -114,4 +117,64 @@ export class PacientesComponent implements OnInit, AfterViewInit {
       this.obtenerPaciente();
      });
   }
+
+
+  downloadData() {
+    const datePipe = new DatePipe("en-US");
+    let date = new Date();
+    let dateName = `${date.getFullYear()}_${date.getMonth()+1}_${date.getDate()}`;
+    let reportName = `Reporte_Pacientes_${dateName}`;
+    const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    const EXCEL_EXTENSION = '.xlsx';
+
+    let jsonObject:any = {};
+    let jsonToDownload: any[] = [];
+    let emptyFile = () => {
+      jsonObject['Nombre del dueño'] = '';
+      jsonObject['Tipo Identificación dueño'] = '';
+      jsonObject['Identificación del dueño'] = '';
+      jsonObject['Ciudad'] = '';
+      jsonObject['teléfono'] = '';
+      jsonObject['Nombre del Paciente'] = '';
+      jsonObject['Fecha Nacimiento'] = '';
+      jsonObject['Especie'] = '';
+      jsonObject['Raza'] = '';
+      jsonObject['Color'] = '';
+      jsonObject['Fecha Registro'] = '';
+      jsonToDownload.push(jsonObject);
+    };
+
+    if (this.dataSource) {
+      if (this.dataSource.data && this.dataSource.data.length > 0) {
+        this.dataSource.data.forEach((cd) => {
+
+          jsonObject['Nombre del dueño'] = cd.mascota.cliente.nombre + ' ' + cd.mascota.cliente.apellido;
+          jsonObject['Tipo Identificación dueño'] = cd.mascota.cliente.tipoId;
+          jsonObject['Identificación del dueño'] = cd.mascota.cliente.numId;
+          jsonObject['Ciudad'] = cd.mascota.cliente.ciudad;
+          jsonObject['teléfono'] = cd.mascota.cliente.telefono;
+          jsonObject['Nombre del Paciente'] = cd.mascota.nomMascota;
+          jsonObject['Fecha Nacimiento'] = datePipe.transform(cd.mascota.fecNacMascota, 'dd/MM/yyyy');
+          jsonObject['Especie'] = cd.mascota.especieMascota;
+          jsonObject['Raza'] = cd.mascota.razaMascota;
+          jsonObject['Fecha Registro'] = datePipe.transform(cd.fecRegistro, 'dd/MM/yyyy');;
+          jsonToDownload.push(jsonObject);
+          jsonObject = {};
+        });
+      } else {
+        emptyFile();
+      }
+    } else {
+      emptyFile();
+    }
+
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(jsonToDownload);
+    const workbook: XLSX.WorkBook = {Sheets: { 'Libro1': worksheet }, SheetNames: ['Libro1']};
+    const excelBuffer: any = XLSX.write(workbook, {bookType: 'xlsx', type: 'array'});
+    const data: Blob = new Blob([excelBuffer], {type: EXCEL_TYPE});
+    this.fileSaverService.save(data, reportName + EXCEL_EXTENSION);
+
+  }
+
 }
+

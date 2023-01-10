@@ -36,6 +36,7 @@ export class AgregarClienteComponent implements OnInit, AfterViewInit {
     this.data = data;
   }
   ngAfterViewInit(): void {}
+
   ngOnInit(): void {
     this.cliente = {
       apellido: '',
@@ -123,6 +124,10 @@ export class AgregarClienteComponent implements OnInit, AfterViewInit {
   prevStep() {
     this.step--;
   }
+
+  cerrarModal() {
+    this.matDialog.closeAll();
+  }
   //Calendario
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
     // Only highligh dates inside the month view.
@@ -137,70 +142,71 @@ export class AgregarClienteComponent implements OnInit, AfterViewInit {
   };
   cargarMascota(): void {
     this.mascota = this.mascotaForm.value;
-    console.log(this.mascota);
-  }
+   }
 
   cargarCliente(): void {
     this.cliente = this.clienteForm.value;
-    console.log(this.cliente);
   }
 
   guardarDatos() {
     this.cargarMascota();
     this.cargarCliente();
-    if (this.data.estado) {
-      this.cliente.id = this.data.paciente.mascota.id;
-      this.pacientesService
-        .actualizarClientePorId(this.cliente.id, this.cliente)
-        .subscribe((rta) => {
-          if (rta && rta.id > 0) {
-            this.mascota.id =  this.data.paciente.mascota.id;
-            this.pacientesService
-              .actualizarMascotaPorId(this.cliente.id, this.mascota)
-              .subscribe((rta) => {
-                if (rta && rta.id > 0) {
-                  this.paciente.fecRegistro = new Date();
-                  this.paciente.id = this.data.paciente.id;
-                  this.pacientesService
-                    .actualizarPacientePorId(this.mascota.id, this.paciente)
-                    .subscribe((rta) => {
-                      if (rta && rta.id > 0) {
-                        Swal.fire({
-                          position: 'center',
-                          icon: 'success',
-                          title: 'Datos del paciente actualizados con exito!',
-                          showConfirmButton: false,
-                          timer: 1500,
-                        });
-                        this.matDialog.closeAll();
-                      }else{
-                        Swal.fire({
-                          icon: 'error',
-                          title: 'No se pudieron actualizar los datos del paciente!',
-                          showConfirmButton: false,
-                          timer: 1500,
-                        });
-                      }
+    if (this.data) {
+      if (this.data.estado) {
+        this.cliente.id = this.data.paciente.mascota.id;
+        this.pacientesService
+          .actualizarClientePorId(this.cliente.id, this.cliente)
+          .subscribe((rta) => {
+            if (rta && rta.id > 0) {
+              this.mascota.id = this.data.paciente.mascota.id;
+              this.pacientesService
+                .actualizarMascotaPorId(this.cliente.id, this.mascota)
+                .subscribe((rta) => {
+                  if (rta && rta.id > 0) {
+                    this.paciente.fecRegistro = new Date();
+                    this.paciente.id = this.data.paciente.id;
+                    this.pacientesService
+                      .actualizarPacientePorId(this.mascota.id, this.paciente)
+                      .subscribe((rta) => {
+                        if (rta && rta.id > 0) {
+                          Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Datos del paciente actualizados con exito!',
+                            showConfirmButton: false,
+                            timer: 1500,
+                          });
+                          this.matDialog.closeAll();
+                        } else {
+                          Swal.fire({
+                            icon: 'error',
+                            title:
+                              'No se pudieron actualizar los datos del paciente!',
+                            showConfirmButton: false,
+                            timer: 1500,
+                          });
+                        }
+                      });
+                  } else {
+                    Swal.fire({
+                      icon: 'error',
+                      title:
+                        'No se pudieron actualizar los datos del paciente!',
+                      showConfirmButton: false,
+                      timer: 1500,
                     });
-                }
-                else{
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'No se pudieron actualizar los datos del paciente!',
-                    showConfirmButton: false,
-                    timer: 1500,
-                  });
-                }
+                  }
+                });
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'No se pudieron actualizar los datos del paciente!',
+                showConfirmButton: false,
+                timer: 1500,
               });
-          }else{
-            Swal.fire({
-              icon: 'error',
-              title: 'No se pudieron actualizar los datos del paciente!',
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          }
-        });
+            }
+          });
+      }
     } else {
       this.pacientesService.registrarCliente(this.cliente).subscribe((rta) => {
         if (rta && rta.id > 0) {

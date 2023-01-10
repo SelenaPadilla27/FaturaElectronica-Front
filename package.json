@@ -22,10 +22,13 @@
     "@angular/platform-browser-dynamic": "^15.0.0",
     "@angular/router": "^15.0.0",
     "@sweetalert2/ngx-sweetalert2": "^12.1.0",
+    "ng-block-ui": "^3.0.2",
+    "ngx-filesaver": "^15.0.0",
     "rxjs": "~7.5.0",
     "sweetalert2": "^11.6.16",
     "tic-tac-toe-minimax": "1.0.8",
     "tslib": "^2.3.0",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.12.0"
   },
   "devDependencies": {
